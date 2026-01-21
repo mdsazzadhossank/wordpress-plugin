@@ -36,12 +36,19 @@ class BdCommerceDashboard {
         $plugin_url = plugin_dir_url(__FILE__);
         $plugin_path = plugin_dir_path(__FILE__);
 
+        // Dynamic Versioning based on file modification time to fix caching
+        $js_path = $plugin_path . 'dist/assets/main.js';
+        $js_ver = file_exists($js_path) ? filemtime($js_path) : '1.0.0';
+        
+        $css_path = $plugin_path . 'dist/assets/main.css';
+        $css_ver = file_exists($css_path) ? filemtime($css_path) : '1.0.0';
+
         // Enqueue React Build JS
         wp_enqueue_script(
             'bdcommerce-react-main',
             $plugin_url . 'dist/assets/main.js',
             ['wp-element'],
-            '1.0.0',
+            $js_ver,
             true
         );
 
@@ -50,7 +57,7 @@ class BdCommerceDashboard {
             'bdcommerce-react-styles',
             $plugin_url . 'dist/assets/main.css',
             [],
-            '1.0.0'
+            $css_ver
         );
 
         // Pass Configuration to React

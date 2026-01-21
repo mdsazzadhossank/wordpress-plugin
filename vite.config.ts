@@ -5,6 +5,9 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   base: '', 
+  define: {
+    'process.env': {} 
+  },
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
@@ -13,8 +16,13 @@ export default defineConfig({
       output: {
         entryFileNames: 'assets/main.js',
         chunkFileNames: 'assets/[name].js',
-        // This ensures the CSS file keeps its name 'main.css' if imported as main.css
-        assetFileNames: 'assets/[name].[ext]',
+        // Force CSS to always be named main.css so PHP can find it
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name && assetInfo.name.endsWith('.css')) {
+            return 'assets/main.css';
+          }
+          return 'assets/[name].[ext]';
+        },
       },
     },
   },
