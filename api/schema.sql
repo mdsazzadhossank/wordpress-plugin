@@ -1,0 +1,11 @@
+
+-- SMS Balance Table
+CREATE TABLE IF NOT EXISTS `sms_balance_store` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `balance` int(11) NOT NULL DEFAULT 0,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Insert initial row (ID 1 with 0 balance)
+INSERT IGNORE INTO `sms_balance_store` (`id`, `balance`) VALUES (1, 0);
