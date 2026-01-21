@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
-  base: '', // Empty string ensures relative paths for assets in the build
+  base: '', 
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
@@ -13,6 +13,7 @@ export default defineConfig({
       output: {
         entryFileNames: 'assets/main.js',
         chunkFileNames: 'assets/[name].js',
+        // This ensures the CSS file keeps its name 'main.css' if imported as main.css
         assetFileNames: 'assets/[name].[ext]',
       },
     },
